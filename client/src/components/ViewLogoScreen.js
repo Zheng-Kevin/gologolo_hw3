@@ -13,6 +13,11 @@ const GET_LOGO = gql`
             fontSize
             lastUpdate
             background
+            borderColor
+            borderRadius
+            borderWidth
+            padding
+            margins
         }
     }
 `;
@@ -55,6 +60,16 @@ class ViewLogoScreen extends Component {
                                         <dd>{data.logo.lastUpdate}</dd>
                                         <dt>Background</dt>
                                         <dd>{data.logo.background}</dd>
+                                        <dt>Border Color</dt>
+                                        <dd>{data.logo.borderColor}</dd>
+                                        <dt>Border Radius</dt>
+                                        <dd>{data.logo.borderRadius}</dd>
+                                        <dt>Border Width </dt>
+                                        <dd>{data.logo.borderWidth}</dd>
+                                        <dt>Padding</dt>
+                                        <dd>{data.logo.padding}</dd>
+                                        <dt>Margins</dt>
+                                        <dd>{data.logo.margins}</dd>
                                     </dl>
                                     <Mutation mutation={DELETE_LOGO} key={data.logo._id} onCompleted={() => this.props.history.push('/')}>
                                         {(removeLogo, { loading, error }) => (

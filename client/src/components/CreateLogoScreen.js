@@ -56,6 +56,7 @@ class CreateLogoScreen extends Component {
                                     color.value = "";
                                     fontSize.value = "";
                                     background.value ="";
+                                    borderColor.value="";
                                 }}>
                                     <div className="form-group">
                                         <label htmlFor="text">Text:</label>
