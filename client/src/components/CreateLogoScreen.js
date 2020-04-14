@@ -7,11 +7,23 @@ const ADD_LOGO = gql`
     mutation AddLogo(
         $text: String!,
         $color: String!,
-        $fontSize: Int!) {
+        $fontSize: Int!,
+        $background: String!,
+        $borderColor: String!
+        $borderRadius: Int!,
+        $borderWidth: Int!,
+        $padding: Int!,
+        $margins: Int!) {
         addLogo(
             text: $text,
             color: $color,
-            fontSize: $fontSize) {
+            fontSize: $fontSize
+            background: $background
+            borderColor: $borderColor
+            borderRadius: $borderRadius
+            borderWidth: $borderWidth
+            padding: $padding
+            margins: $margins) {
             _id
         }
     }
@@ -20,7 +32,7 @@ const ADD_LOGO = gql`
 class CreateLogoScreen extends Component {
 
     render() {
-        let text, color, fontSize;
+        let text, color, fontSize,background,borderColor,borderRadius,borderWidth,padding,margins;
         return (
             <Mutation mutation={ADD_LOGO} onCompleted={() => this.props.history.push('/')}>
                 {(addLogo, { loading, error }) => (
@@ -35,10 +47,15 @@ class CreateLogoScreen extends Component {
                             <div className="panel-body">
                                 <form onSubmit={e => {
                                     e.preventDefault();
-                                    addLogo({ variables: { text: text.value, color: color.value, fontSize: parseInt(fontSize.value) } });
+                                    addLogo({ variables: { text: text.value, color: color.value,
+                                        fontSize: parseInt(fontSize.value),background:background.value,
+                                        borderColor:borderColor.value,borderRadius:parseInt(borderRadius.value) ,
+                                        borderWidth:parseInt(borderWidth.value),padding:parseInt(padding.value),
+                                        margins:parseInt(margins.value) } });
                                     text.value = "";
                                     color.value = "";
                                     fontSize.value = "";
+                                    background.value ="";
                                 }}>
                                     <div className="form-group">
                                         <label htmlFor="text">Text:</label>
@@ -58,6 +75,43 @@ class CreateLogoScreen extends Component {
                                             fontSize = node;
                                         }} placeholder="Font Size" />
                                     </div>
+                                    <div className="form-group">
+                                        <label htmlFor="background">background:</label>
+                                        <input type = "color" className = "form-control" name ="background" ref={node =>{
+                                            background =node;
+                                        }}placeholder = "background"/>
+                                         </div>
+                                     <div className="form-group">
+                                        <label htmlFor="boderColor">Border Color:</label>
+                                        <input type = "color" className = "form-control" name ="borderColor" ref={node =>{
+                                            borderColor =node;
+                                        }}placeholder = "borderColor"/>
+                                         </div>
+                                     <div className="form-group">
+                                        <label htmlFor="borderRadius">border radius:</label>
+                                        <input type = "number" className = "form-control" name ="borderRadius" ref={node =>{
+                                            borderRadius =node;
+                                        }}placeholder = "borderRadius"/>
+                                         </div>
+                                         <div className="form-group">
+                                        <label htmlFor="borderWidth">border width:</label>
+                                        <input type = "number" className = "form-control" name ="borderWidth" ref={node =>{
+                                            borderWidth =node;
+                                        }}placeholder = "borderWidth"/>
+                                         </div>
+                                         <div className="form-group">
+                                        <label htmlFor="padding">padding:</label>
+                                        <input type="number" className="form-control" name="padding" ref={node => {
+                                            padding = node;
+                                        }} placeholder="padding" />
+                                    </div>      
+                                    <div className="form-group">
+                                        <label htmlFor="margins">Margins:</label>
+                                        <input type="number" className="form-control" name="margins" ref={node => {
+                                            margins = node;
+                                        }} placeholder="margins" />
+                                    </div>
+                                    
                                     <button type="submit" className="btn btn-success">Submit</button>
                                 </form>
                                 {loading && <p>Loading...</p>}

@@ -12,6 +12,7 @@ const GET_LOGO = gql`
             color
             fontSize
             lastUpdate
+            background
         }
     }
 `;
@@ -52,6 +53,8 @@ class ViewLogoScreen extends Component {
                                         <dd>{data.logo.fontSize}</dd>
                                         <dt>Last Updated:</dt>
                                         <dd>{data.logo.lastUpdate}</dd>
+                                        <dt>Background</dt>
+                                        <dd>{data.logo.background}</dd>
                                     </dl>
                                     <Mutation mutation={DELETE_LOGO} key={data.logo._id} onCompleted={() => this.props.history.push('/')}>
                                         {(removeLogo, { loading, error }) => (

@@ -8,7 +8,7 @@ var GraphQLString = require('graphql').GraphQLString;
 var GraphQLInt = require('graphql').GraphQLInt;
 var GraphQLDate = require('graphql-date');
 var LogoModel = require('../models/Logo');
-
+//create logotype...
 var logoType = new GraphQLObjectType({
     name: 'logo',
     fields: function () {
@@ -23,15 +23,34 @@ var logoType = new GraphQLObjectType({
                 type: GraphQLString
             },
             fontSize: {
-                type: GraphQLInt
+                type: GraphQLInt    
             },
             lastUpdate: {
                 type: GraphQLDate
+            },
+            background: {
+                type: GraphQLString
+            },
+            borderColor:{
+                type:GraphQLString
+            },
+            borderRadius:{
+                type:GraphQLInt
+            },
+            borderWidth:{
+                type:GraphQLInt
+            },
+            padding:{
+                type:GraphQLInt
+            },
+            margins:{
+                type: GraphQLInt
             }
         }
     }
 });
 
+//for query purpose
 var queryType = new GraphQLObjectType({
     name: 'Query',
     fields: function () {
@@ -66,6 +85,7 @@ var queryType = new GraphQLObjectType({
     }
 });
 
+//changes logo
 var mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: function () {
@@ -81,7 +101,26 @@ var mutation = new GraphQLObjectType({
                     },
                     fontSize: {
                         type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    background: {
+                        type: new GraphQLNonNull(GraphQLString)
+                    },
+                    borderColor:{
+                        type: new GraphQLNonNull(GraphQLString)
+                    },
+                    borderRadius:{
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    borderWidth:{
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    padding:{
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    margins:{
+                        type: new GraphQLNonNull(GraphQLInt)
                     }
+
                 },
                 resolve: function (root, params) {
                     const logoModel = new LogoModel(params);
@@ -107,10 +146,30 @@ var mutation = new GraphQLObjectType({
                     },
                     fontSize: {
                         type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    background:{
+                        type: new GraphQLNonNull(GraphQLString)
+                    },    
+                    borderColor:{
+                        type: new GraphQLNonNull(GraphQLString)
+                    },
+                    borderRadius:{
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    borderWidth:{
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    padding:{
+                        type: new GraphQLNonNull(GraphQLInt)
+                    },
+                    margins:{
+                        type: new GraphQLNonNull(GraphQLInt)
                     }
                 },
                 resolve(root, params) {
-                    return LogoModel.findByIdAndUpdate(params.id, { text: params.text, color: params.color, fontSize: params.fontSize, lastUpdate: new Date() }, function (err) {
+                    return LogoModel.findByIdAndUpdate(params.id, { text: params.text, color: params.color, fontSize: params.fontSize, background:params.background,
+                        borderColor: params.borderColor, borderRadius:params.borderRadius,borderWidth:params.borderWidth,
+                        padding:params.padding,margins:params.margins,lastUpdate: new Date() }, function (err) {
                         if (err) return next(err);
                     });
                 }

@@ -4,6 +4,7 @@ var LogoSchema = new mongoose.Schema({
   id: String,
   text: String,
   color: String,
+  background: String,
   fontSize: { type: Number, min: 2, max: 144 },
   lastUpdate: { type: Date, default: Date.now },
 });
